@@ -1,0 +1,63 @@
+{% load static %}
+{% load auth_extras %}
+<!Doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <!-- Font-awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+    <!-- Font-awesome JS -->
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark navbar-expand-lg bg-dark text-secondary">
+        <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="navbar-brand" href="#">NHTSA Data Viewer</a>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                 <a class="nav-link active text-secondary" aria-current="page" href="{% url 'main' %}">Home</a>
+            </li>
+            {% if request.user|has_group:"Admin" %} 
+            <li class="nav-item">
+                 <a class="nav-link active text-secondary" aria-current="page" href="{% url 'adminview' %}">Admin</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active text-secondary" aria-current="page" href="{% url 'history' %}">History</a>
+           </li>
+           {% endif %}
+           {% if request.user|has_group:"Underwriter" %} 
+           <li class="nav-item">
+            <a class="nav-link active text-secondary" aria-current="page" href="{% url 'history' %}">History</a>
+           </li>
+           {% endif %}
+        </ul>
+        </div>
+    </div>
+</nav>
+            
+                {% block body %}
+                {% endblock %}
+    
+
+</body>
+</html>
