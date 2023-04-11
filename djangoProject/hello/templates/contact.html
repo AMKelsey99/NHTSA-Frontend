@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="row">
+  <div class="col-12 align-self-center">
+      <div class="card ml-5 border-white">
+        <h5 class="card-header border-white bg-white">Contact Us</h5>
+          <div class="card-body">
+            <form action="{% url 'contact' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" value="info" class="text-white m-2 p-1 px-3 rounded bg-primary border-0"><i class="fa-solid fa-floppy-disk"></i> Send</button>
+            </form>
+          </div>
+        </div>
+        <br>
+        <a href="{% url 'hello' %}" class="btn btn-warning border-3 px-3 text-dark rounded"><i class="fa-solid fa-arrow-left-long"></i> Go Home</a>
+      </div></div>
+{% endblock %}

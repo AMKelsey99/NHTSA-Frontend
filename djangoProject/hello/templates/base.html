@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+<!-- Bootstrap’s CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+</head>
+<body>
+
+    <nav class="navbar navbar-dark navbar-expand-lg bg-secondary text-light">
+        <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="navbar-brand" href="#">Central Veterinarian Clinic</a>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+        <a class="nav-link active text-light" aria-current="page" href="{% url 'hello' %}">Home</a>
+        </li>
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            User
+            </a>
+            <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
+            <li><a class="dropdown-item" href="{% url 'login_page' %}">Login</a></li>
+            <li><a class="dropdown-item" href="{% url 'logout_view' %}">Logout</a></li>
+            <li><a class="dropdown-item" href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'services' %}">Services</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'faq' %}">FAQ</a>
+        </li>
+
+        </ul>
+        </div>
+    </div>
+</nav>
+<br> <br>
+<div class ="rounded">
+    <div class="container">
+        <div class="p-3 mb-5 bg-white rounded">
+
+            {% block body %}
+            {% endblock %}
+
+
+
+    <!-- Bootstraps JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
