@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load auth_extras %}
+
+
+{% block title %}
+{{entry.make_name}} {{entry.model_name}} - {{entry.vehicle_id}}
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="container m-7 p-3 bg-dark shadow ">
+    <div class="row">
+    <div class="col-lg-4">
+        <table class="table table-dark table-borderless">
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="{% url 'main' %}" class="btn px-3 text-secondary" style="background-color: #2d3338">BACK</a></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="width:50px"><div class="lead mx-1 mt-2">MAKE</div></td>
+                    <td>
+                        <div class="container overflow-auto text-secondary p-2 m-2" style="background-color: #2d3338;">
+                        {{entry.make_name}} || {{entry.make_id}}
+                    </div>
+                </td>
+                </tr>
+                <tr>
+                    <td style="width:50px"><div class="lead mx-1 mt-2">MODEL</div></td>
+                    <td>
+                        <div class="container overflow-auto text-secondary p-2 m-2" style="background-color: #2d3338;">
+                            {{entry.model_name}} || {{entry.model_id}}
+                    </div>
+                </td>
+                </tr>
+                <tr>
+                    <td style="width:50px"><div class="lead mx-1 mt-2">YEAR</div></td>
+                    <td>
+                        <div class="container overflow-auto text-secondary p-2 m-2" style="background-color: #2d3338;">
+                            {{entry.year}}
+                    </div>
+                </td>
+                </tr>
+            </tbody>
+        </table>
+       
+        <table class="table table-dark table-borderless">
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    {% if request.user|has_group:"Admin" %}
+                    <td style="width:50px"><a href="{% url 'delete' entry.vehicle_id %}" class="btn px-3 text-secondary" style="background-color: #2d3338">Delete</a></td>
+                    <!-- <td><a href="{% url 'main' %}" class="btn px-3 text-secondary" style="background-color: #2d3338">Edit</a></td> -->
+                    {% elif request.user|has_group:"Underwriter" %}
+                    <!--<td style="width:50px"><a href="{% url 'delete' entry.vehicle_id %}" class="btn px-3 text-secondary" style="background-color: #2d3338">Delete</a></td>
+<td><a href="{% url 'main' %}" class="btn px-3 text-secondary" style="background-color: #2d3338">Edit</a></td>-->
+                    {% endif %}
+                </tr>
+            </tbody>
+        </table>
+                    <div class="lead mt-2 text-light">ALL RATINGS</div>
+                    <div class="container overflow-auto text-secondary align-left px-2" style="height:200px; width:100%; background-color: #2d3338">
+                        <table class="table table-borderless text-light">
+                            <thead>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                       <b>RATING FACTOR</b>
+                                    </td>
+                                    <td>
+                                        <b>{{ratings.rfid}}</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Overall Front Crash:
+                                    </td>
+                                    <td>
+                                        {{ratings.overallfrontcrashrating}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Front Crash Driver Side:
+                                    </td>
+                                    <td>
+                        {{ratings.frontcrashdriversiderating}}
+                    </td>
+                    </tr>
+                        <tr>
+                            <td>
+                                Front Crash Passenger Side:
+                            </td>
+                            <td>
+                        {{ratings.frontcrashpassengersiderating}}
+                    </td>
+                    </tr>
+                        <tr>
+                            <td>
+                                Overall Side Crash Rating:
+                            </td>
+                            <td>
+                        {{ratings.overallsidecrashrating}}
+                    </td>
+                    </tr>
+                        <tr>
+                            <td>
+                                Side Crash Driver Sider:
+                            </td>
+                            <td>
+                        {{ratings.sidecrashdriversiderating}}
+                    </td>
+                    </tr>
+                        <tr>
+                            <td>
+                                Side Crash Passenger Side:
+                            </td>
+                            <td>
+                        {{ratings.sidecrashpassengersiderating}}
+                    </td>
+                    </tr>
+                        <tr>
+                            <td>
+                                Combined Side Barrier/Pole (Front):
+                            </td>
+                            <td>
+                        {{ratings.combinedsidebarrierandpoleratingfront}}
+                    </td>
+                    </tr>
+                        <tr>
+                            <td>
+                                Combined Side Barrier/Pole (Rear):
+                            </td>
+                            <td>
+                        {{ratings.combinedsidebarrierandpoleratingrear}}
+                    </td>
+                    </tr>
+                        <tr>
+                            <td>
+                                Side Barrier (Overall):
+                            </td>
+                            <td>
+                        {{ratings.sidebarrierratingoverall}}
+                            </td>
+                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+    </div>
+    <div class="col-lg-8" style="margin-top:1%">
+
+        <div class="lead text-light">FRONT</div>
+        <div class="container overflow-auto text-secondary px-2" style="height:95px; width:100%; background-color: #2d3338">
+            <table class="table table-borderless text-light">
+                <thead></thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Front Crash Driver Side:
+                        </td>
+                        <td>
+            {{ratings.frontcrashdriversiderating}}
+        </td>
+        </tr>
+            <tr>
+                <td>
+                    Front Crash Passenger Side:
+                </td>
+                <td>
+            {{ratings.frontcrashpassengersiderating}}
+        </td>
+        </tr>
+    </tbody>
+    </table>
+        </div>  
+        <br>
+
+        <div class="lead text-light">SIDE</div>
+        <div class="container overflow-auto text-secondary px-2" style="height:95px; width:100%; background-color: #2d3338">
+            <table class="table table-borderless text-light">
+            <thead></thead>
+            <tbody>   
+            <tr>
+                <td>
+                    Side Crash Driver Sider:
+                </td>
+                <td>
+            {{ratings.sidecrashdriversiderating}}
+        </td>
+        </tr>
+            <tr>
+                <td>
+                    Side Crash Passenger Side:
+                </td>
+                <td>
+            {{ratings.sidecrashpassengersiderating}}
+        </td>
+        </tr>
+    </tbody>
+</table>
+        </div>
+        <br>
+
+        <div class="lead text-light">BARRIER/POLE</div>
+        <div class="container overflow-auto text-secondary px-2" style="height:95px; width:100%; background-color: #2d3338">
+        <table class="table table-borderless text-light">
+            <thead></thead>
+            <tbody>
+                <tr>
+                    <td>
+                        Combined Side Barrier/Pole (Front):
+                    </td>
+                    <td>
+                {{ratings.combinedsidebarrierandpoleratingfront}}
+            </td>
+            </tr>
+                <tr>
+                    <td>
+                        Combined Side Barrier/Pole (Rear):
+                    </td>
+                    <td>
+                {{ratings.combinedsidebarrierandpoleratingrear}}
+            </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <br>
+
+        <div class="lead text-light">OVERALL</div>
+        <div class="container overflow-auto text-secondary px-2" style="height:95px; width:100%; background-color: #2d3338">
+            <table class="table table-borderless text-light">
+                <thead></thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Overall Front Crash:
+                        </td>
+                        <td>
+            {{ratings.overallfrontcrashrating}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Side Barrier (Overall):
+                        </td>
+                        <td>
+                    {{ratings.sidebarrierratingoverall}}
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        Overall Side Crash Rating:
+                    </td>
+                    <td>
+                {{ratings.overallsidecrashrating}}
+            </td>
+            </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>
+</div>
+
+{% endblock %}
+

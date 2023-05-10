@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Edit History
+{% endblock %}
+
+{% block body %}
+
+<div class="container overflow-auto">
+    <div class="row">
+        <div class="col-12">
+            <div class="container m-3 px-7 bg-dark overflow-auto px-2" style="height:700px">
+                <table class="table table-borderless table-dark table-striped table-hover" >
+                    <thead style="position: sticky;top: 0" class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Make</th>
+                            <th scope="col">Model</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Reason</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">User ID</th>
+                            <th scope="col">History ID</th>
+                        </tr>
+                    </thead>
+                <tbody class="text-secondary">
+                    {% for entry in history_table %}
+                    <tr>
+                        <td>{{entry.Vehicle_ID}}</td>
+                        <td>{{entry.Make_Name}}</td>
+                        <td>{{entry.Model_Name}}</td>
+                        <td>{{entry.Year}}</td>
+                        <td>{{entry.history_date}}</td>
+                        <td>{{entry.history_change_reason}}</td>
+                        <td>{{entry.history_type}}</td>
+                        <td>{{entry.history_user_id}}</td>
+                        <td>{{entry.history_id}}</td>
+                    </tr>
+                    {% empty %}
+                    <h3 class="text-light">No items found with your search term, or there are no model entries added yet.</h3>
+                    {% endfor %}
+                </tbody>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
